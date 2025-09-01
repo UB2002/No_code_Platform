@@ -530,6 +530,12 @@ body {
   font-weight: 600;
 }
 
+.config-panel p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .selected-component {
   background: #f9fafb;
   padding: 1rem;
@@ -560,6 +566,17 @@ body {
   color: #374151;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
+  display: block;
+}
+
+.config-section p {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.config-section span {
+  color: #374151;
+  font-size: 0.9rem;
 }
 
 .config-section input,
@@ -570,6 +587,7 @@ body {
   border-radius: 8px;
   font-size: 0.9rem;
   background: white;
+  color: #374151;
   transition: border-color 0.2s;
 }
 
@@ -1055,6 +1073,39 @@ anced Run Button */
   box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
+/* Floating Run Button */
+.floating-run-btn {
+  position: absolute;
+  bottom: 6rem;
+  right: 2rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.floating-run-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.5);
+}
+
+.floating-run-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Floating Chat Button */
 .floating-chat-btn {
   position: absolute;
@@ -1123,4 +1174,287 @@ anced Run Button */
 .config-panel h3::before {
   content: "⚙️ ";
   margin-right: 0.5rem;
+}/*
+ Custom Node Styles - Matching the exact design */
+.custom-node {
+  background: white;
+  /* border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  min-width: 300px;
+  max-width: 350px;
+  transition: all 0.2s;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.custom-node:hover {
+  transform: translateY(-1px);
+}
+
+.custom-node.selected {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Node Header */
+.node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  background: #fafafa;
+  border-radius: 12px 12px 0 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.node-icon {
+  color: #64748b;
+}
+
+.node-title {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.node-settings {
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.node-settings:hover {
+  color: #64748b;
+}
+
+/* Node Content */
+.node-content {
+  padding: 1.25rem;
+}
+
+.node-description {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+/* Query Section */
+.query-section {
+  margin-bottom: 1rem;
+}
+
+
+.section-label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.query-input-container {
+  position: relative;
+}
+
+.query-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.875rem;
+  /* border: 1px solid #d1d5db; */
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  background: #fafafa;
+  resize: none;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* .query-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: white;
+  color: #374151;
+} */
+
+/* File Section */
+.file-section {
+  margin-bottom: 1rem;
+}
+
+.file-display {
+  padding: 0.875rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+.uploaded-file {
+  color: #059669;
+  font-weight: 500;
+}
+
+.no-file {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Config Display */
+.config-display {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.config-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.config-label {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.config-value {
+  font-size: 0.875rem;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+/* Output Section */
+.output-section {
+  margin-bottom: 1rem;
+}
+
+.output-display {
+  padding: 0.875rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Connection Handles */
+.custom-handle {
+  background: #f59e0b !important;
+  
+  width: 12px !important;
+  height: 12px !important;
+  position: absolute !important;
+  z-index: 10 !important;
+}
+
+/* .custom-handle:hover {
+  background: #d97706 !important;
+  transform: scale(1.2) !important;
+} */
+
+/* Handle Labels */
+.handle-label-left,
+.handle-label-right {
+  position: absolute;
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+  background: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.handle-label-right {
+  right: -2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Node Type Specific Styling */
+.user-query-node .node-icon {
+  color: #3b82f6;
+}
+
+.knowledge-base-node .node-icon {
+  color: #8b5cf6;
+}
+
+.llm-engine-node .node-icon {
+  color: #f59e0b;
+}
+
+.output-node .node-icon {
+  color: #10b981;
+}
+
+/* Selection States */
+.user-query-node.selected {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.knowledge-base-node.selected {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.llm-engine-node.selected {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+.output-node.selected {
+  border-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* Hide default React Flow nodes */
+.react-flow__node-default {
+  display: none;
+}/* Ensur
+e React Flow handles work properly */
+.react-flow__handle {
+  background: #f59e0b !important;
+  border: 2px solid white !important;
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.react-flow__handle:hover {
+  background: #d97706 !important;
+  transform: scale(1.2) !important;
+}
+
+.react-flow__handle-connecting {
+  background: #10b981 !important;
+}
+
+.react-flow__handle-valid {
+  background: #10b981 !important;
+}
+
+/* Ensure custom nodes don't interfere with handles */
+.custom-node {
+  pointer-events: all;
+}
+
+.custom-node .react-flow__handle {
+  pointer-events: all;
+  cursor: crosshair;
 }

@@ -8,7 +8,6 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <Navbar />
         <main className="main-content">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />

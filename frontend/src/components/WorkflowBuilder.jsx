@@ -15,10 +15,11 @@ import '@xyflow/react/dist/style.css'
 import ComponentPanel from './ComponentPanel'
 import ConfigPanel from './ConfigPanel'
 import ChatModal from './ChatModal'
+import { nodeTypes } from './CustomNodes'
 import { Save, Play, MessageCircle, ArrowLeft } from 'lucide-react'
 import axios from 'axios'
 
-const nodeTypes = {
+const nodeTypeLabels = {
   userQuery: 'UserQuery',
   knowledgeBase: 'KnowledgeBase',
   llmEngine: 'LLMEngine',
@@ -37,7 +38,10 @@ const WorkflowBuilder = ({ onBack }) => {
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) => {
+      console.log('Connecting:', params)
+      setEdges((eds) => addEdge(params, eds))
+    },
     [setEdges]
   )
 
@@ -62,11 +66,11 @@ const WorkflowBuilder = ({ onBack }) => {
 
       const newNode = {
         id: `${type}-${Date.now()}`,
-        type: 'default',
+        type: type, // Use the custom node type
         position,
         data: {
-          label: nodeTypes[type],
-          type: nodeTypes[type], // Use the display name instead of the key
+          label: nodeTypeLabels[type],
+          type: nodeTypeLabels[type], // Use the display name for backend
           config: getDefaultConfig(type)
         },
       }
@@ -227,10 +231,7 @@ const WorkflowBuilder = ({ onBack }) => {
             <Save size={16} />
             {saving ? 'Saving...' : 'Save'}
           </button>
-          <button onClick={runWorkflow} disabled={validating} className="btn btn-primary run-button">
-            <Play size={18} />
-            {validating ? 'Validating...' : 'Run Stack'}
-          </button>
+
         </div>
       </div>
 
@@ -241,6 +242,7 @@ const WorkflowBuilder = ({ onBack }) => {
           <ReactFlow
             nodes={nodes}
             edges={edges}
+            nodeTypes={nodeTypes}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
@@ -248,21 +250,35 @@ const WorkflowBuilder = ({ onBack }) => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             onNodeClick={onNodeClick}
+            connectionMode="loose"
+            snapToGrid={true}
+            snapGrid={[15, 15]}
             fitView
           >
             <Controls />
-            <MiniMap />
+
             <Background variant="dots" gap={12} size={1} />
           </ReactFlow>
-          
+
+          {/* Floating Run Button */}
+          <button
+            onClick={runWorkflow}
+            disabled={validating}
+            className="floating-run-btn"
+            title="Run Stack"
+          >
+            <Play size={20} />
+            {validating ? 'Validating...' : ''}
+          </button>
+
           {/* Floating Chat Button */}
-          <button 
-            onClick={() => setShowChat(true)} 
+          <button
+            onClick={() => setShowChat(true)}
             className="floating-chat-btn"
             title="Chat with Stack"
           >
             <MessageCircle size={20} />
-            Chat with Stack
+
           </button>
         </div>
 
