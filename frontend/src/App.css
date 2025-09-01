@@ -444,6 +444,7 @@ body {
   height: 100%;
   background: white;
   margin: 1rem;
+  margin-left: 0;
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -1267,14 +1268,25 @@ anced Run Button */
   width: 100%;
   min-height: 100px;
   padding: 0.875rem;
-  /* border: 1px solid #d1d5db; */
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 0.875rem;
-  color: #9ca3af;
-  background: #fafafa;
+  color: #374151;
+  background: white;
   resize: none;
   font-family: inherit;
   line-height: 1.5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.query-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.query-input::placeholder {
+  color: #9ca3af;
 }
 
 /* .query-input:focus {
@@ -1457,4 +1469,126 @@ e React Flow handles work properly */
 .custom-node .react-flow__handle {
   pointer-events: all;
   cursor: crosshair;
+}
+
+/* Inline Configuration Styles */
+.inline-config {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.inline-config label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.config-input,
+.config-select,
+.config-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: white;
+  color: #374151;
+  transition: border-color 0.2s;
+}
+
+.config-input:focus,
+.config-select:focus,
+.config-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.config-range {
+  width: 100%;
+  padding: 0;
+  margin: 0.25rem 0;
+}
+
+.config-checkbox {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.config-checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.file-upload-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-btn-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #3b82f6;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.upload-btn-inline:hover {
+  background: #2563eb;
+}
+
+
+
+.uploaded-file {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.uploaded-file small {
+  color: #64748b;
+}
+
+.no-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.quick-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: #3b82f6;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.quick-upload-btn:hover {
+  background: #2563eb;
 }

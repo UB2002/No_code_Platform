@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import {
   ReactFlow,
   Background,
@@ -13,7 +13,6 @@ import {
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import ComponentPanel from './ComponentPanel'
-import ConfigPanel from './ConfigPanel'
 import ChatModal from './ChatModal'
 import { nodeTypes } from './CustomNodes'
 import { Save, Play, MessageCircle, ArrowLeft } from 'lucide-react'
@@ -29,13 +28,26 @@ const nodeTypeLabels = {
 const WorkflowBuilder = ({ onBack }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([])
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
-  const [selectedNode, setSelectedNode] = useState(null)
+
   const [showChat, setShowChat] = useState(false)
   const [workflowName, setWorkflowName] = useState('')
   const [saving, setSaving] = useState(false)
   const [validating, setValidating] = useState(false)
   const reactFlowWrapper = useRef(null)
   const [reactFlowInstance, setReactFlowInstance] = useState(null)
+
+  // Ensure all nodes have the config change handler
+  useEffect(() => {
+    setNodes((nds) =>
+      nds.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          onConfigChange: updateNodeConfig
+        }
+      }))
+    )
+  }, [])
 
   const onConnect = useCallback(
     (params) => {
@@ -64,14 +76,17 @@ const WorkflowBuilder = ({ onBack }) => {
         y: event.clientY,
       })
 
+      const nodeId = `${type}-${Date.now()}`
       const newNode = {
-        id: `${type}-${Date.now()}`,
+        id: nodeId,
         type: type, // Use the custom node type
         position,
         data: {
+          id: nodeId,
           label: nodeTypeLabels[type],
           type: nodeTypeLabels[type], // Use the display name for backend
-          config: getDefaultConfig(type)
+          config: getDefaultConfig(type),
+          onConfigChange: updateNodeConfig
         },
       }
 
@@ -83,7 +98,7 @@ const WorkflowBuilder = ({ onBack }) => {
   const getDefaultConfig = (type) => {
     switch (type) {
       case 'userQuery':
-        return { placeholder: 'Enter your question...' }
+        return { queryText: '' }
       case 'knowledgeBase':
         return { collectionName: 'knowledge_base', chunkSize: 500 }
       case 'llmEngine':
@@ -100,15 +115,13 @@ const WorkflowBuilder = ({ onBack }) => {
     }
   }
 
-  const onNodeClick = useCallback((event, node) => {
-    setSelectedNode(node)
-  }, [])
+
 
   const updateNodeConfig = (nodeId, config) => {
     setNodes((nds) =>
       nds.map((node) =>
         node.id === nodeId
-          ? { ...node, data: { ...node.data, config } }
+          ? { ...node, data: { ...node.data, config, onConfigChange: updateNodeConfig } }
           : node
       )
     )
@@ -249,7 +262,7 @@ const WorkflowBuilder = ({ onBack }) => {
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
-            onNodeClick={onNodeClick}
+
             connectionMode="loose"
             snapToGrid={true}
             snapGrid={[15, 15]}
@@ -282,10 +295,7 @@ const WorkflowBuilder = ({ onBack }) => {
           </button>
         </div>
 
-        <ConfigPanel
-          selectedNode={selectedNode}
-          onUpdateConfig={updateNodeConfig}
-        />
+
       </div>
 
       {showChat && (
