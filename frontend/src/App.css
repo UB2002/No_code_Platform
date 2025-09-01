@@ -226,6 +226,7 @@ body {
   padding: 2rem;
   width: 100%;
   flex: 1;
+  background-color: white;
 }
 
 .dashboard-header {
@@ -268,7 +269,7 @@ body {
 
 .workflow-header h3 {
   margin: 0;
-  color: #333;
+  color: #fff1f1;
   flex: 1;
 }
 
@@ -1167,12 +1168,11 @@ anced Run Button */
 
 /* Better component panel title */
 .component-panel h3::before {
-  content: "🧩 ";
+  
   margin-right: 0.5rem;
 }
 
 .config-panel h3::before {
-  content: "⚙️ ";
   margin-right: 0.5rem;
 }/*
  Custom Node Styles - Matching the exact design */
